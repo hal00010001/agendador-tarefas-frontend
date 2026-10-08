@@ -2,24 +2,56 @@
     <mat-card>
         <mat-card-header>
             <mat-card-title>Cadastro de Usuário</mat-card-title>
-        </mat-card-header>
+        </mat-card-header>        
         <mat-card-content>
-            <mat-form-field class="full-width">
-                <mat-label>Nome completo</mat-label>
-                <input matInput placeholder="Digite seu nome completo">
-            </mat-form-field>
-            <mat-form-field class="full-width">
-                <mat-label>Email</mat-label>
-                <input matInput placeholder="Digite seu email">
-            </mat-form-field>
-            <!-- <mat-form-field class="full-width">
-                <mat-label>Senha</mat-label>
-                <input matInput type="password" placeholder="Digite sua senha">
-            </mat-form-field> -->
-            <app-password-field></app-password-field>
+            <form [formGroup]="form">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Nome completo</mat-label>
+                    <input matInput formControlName="nome" placeholder="Digite seu nome completo">
+                </mat-form-field>
+                <!-- @if (form.get('fullName')?.errors) {
+                    @if (form.get('fullName')?.errors?.['required']) {
+                        <mat-error>O nome completo é obrigatório</mat-error>
+                    }
+                    @if (form.get('fullName')?.errors?.['minlength']) {
+                        <mat-error>O nome completo deve ter pelo menos 3 caracteres</mat-error>
+                    }
+                } -->
+
+                @if (fullNameErrors) {
+                    <mat-error>{{ fullNameErrors }}</mat-error>
+                }
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" placeholder="Digite seu email" formControlName="email">
+                </mat-form-field>
+                <!-- @if (form.get('email')?.errors) {
+                    @if (form.get('email')?.errors?.['required']) {
+                        <mat-error>O email é obrigatório</mat-error>
+                    }
+                    @if (form.get('email')?.errors?.['email']) {
+                        <mat-error>O email é inválido</mat-error>
+                    }
+                } -->
+                @if (emailErrors) {
+                    <mat-error>{{ emailErrors }}</mat-error>
+                }
+                <!-- <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Senha</mat-label>
+                    <input matInput type="password" placeholder="Digite sua senha">
+                </mat-form-field> -->
+                <app-password-field [control]="passwordControl"></app-password-field>
+            </form>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button class="full-width">Cadastrar</button>
+            <button mat-raised-button class="full-width" [disabled]="form.invalid || isLoading" (click)="submit()">
+                <span class="cad-button-content">
+                    {{ isLoading ? 'Cadastrando...' : 'Cadastrar' }}
+                    @if (isLoading) {
+                        <mat-spinner diameter="20"></mat-spinner>
+                    }
+                </span>
+            </button>
         </mat-card-actions>
     </mat-card>
 </div>
