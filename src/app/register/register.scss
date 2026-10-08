@@ -41,6 +41,28 @@ button.mdc-button {
   margin-top: 5px;
 }
 
+.register-component .mat-mdc-text-field-wrapper {
+  border: 2px solid gray;
+  background-color: lightgray;
+  border-radius: 25px !important;  
+  padding: 10px 10px 10px 10px;
+
+  .mdc-line-ripple {
+    display: none;
+  }
+}
+
+.register-component .cad-button-content {
+  display: inline-flex;
+  align-items: center;
+  // justify-content: center;
+  // gap: 8px; /* Espaçamento entre o texto e o spinner */
+
+  mat-spinner {
+    margin-left: 8px; /* Espaçamento entre o texto e o spinner */
+  }
+}
+
 // :host {
 //   display: flex;
 //   flex-direction: column;
